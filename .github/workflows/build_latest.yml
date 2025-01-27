@@ -52,7 +52,7 @@ jobs:
     steps:
       - run: |
           sudo apt-get update
-          sudo apt-get install -y curl wget libicu-dev libcurl4-openssl-dev zlib1g-dev libkrb5-dev clang llvm
+          sudo apt-get install -y curl wget libicu-dev libcurl4-openssl-dev zlib1g-dev libkrb5-dev clang llvm gcc-aarch64-linux-gnu binutils-aarch64-linux-gnu
       
       - uses: actions/checkout@v1
       - name: Set up dotnet
