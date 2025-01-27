@@ -63,15 +63,15 @@ jobs:
       - run: |
           curl -Lo qnap-x64.tar http://download.qnap.com/dev/Toolchain/QNAP_cross_toolchains_64.20160606.tar
           tar -xvf qnap-x64.tar
-          dotnet publish src/N_m3u8DL-RE -r qnap-x64 -c Release -o artifact \
-            CC=${PWD}/CT/x86_64-QNAP-linux-gnu/cross-tools/bin/x86_64-QNAP-linux-gnu-gcc \
-            CXX=${PWD}/CT/x86_64-QNAP-linux-gnu/cross-tools/bin/x86_64-QNAP-linux-gnu-g++
+          dotnet publish src/N_m3u8DL-RE/N_m3u8DL-RE.csproj -r qnap-x64 -c Release -o artifact \
+            --property:CC=${PWD}/CT/x86_64-QNAP-linux-gnu/cross-tools/bin/x86_64-QNAP-linux-gnu-gcc \
+            --property:CXX=${PWD}/CT/x86_64-QNAP-linux-gnu/cross-tools/bin/x86_64-QNAP-linux-gnu-g++
       - run: |
           curl -Lo qnap-arm64.tar.gz https://download.qnap.com/dev/Toolchain/aarch64-QNAP-linux-gnu_20171114.tar.gz
           tar -xzvf qnap-arm64.tar.gz
-          dotnet publish src/N_m3u8DL-RE -r qnap-arm64 -c Release -o artifact-arm64 \
-            CC=${PWD}/aarch64-QNAP-linux-gnu/bin/aarch64-QNAP-linux-gnu-gcc \
-            CXX=${PWD}/aarch64-QNAP-linux-gnu/bin/aarch64-QNAP-linux-gnu-g++
+          dotnet publish src/N_m3u8DL-RE/N_m3u8DL-RE.csproj -r qnap-arm64 -c Release -o artifact-arm64 \
+            --property:CC==${PWD}/aarch64-QNAP-linux-gnu/bin/aarch64-QNAP-linux-gnu-gcc \
+            --property:CXX=${PWD}/aarch64-QNAP-linux-gnu/bin/aarch64-QNAP-linux-gnu-g++
 
       - name: Package [linux]
         run: |
