@@ -11,7 +11,7 @@ on:
       tag:
         type: string
         description: 'Release version tag (e.g. v0.2.1-beta)'
-        required: true
+        required: false
       ref:
         type: string
         description: 'Git ref from which to release'
