@@ -81,7 +81,7 @@ jobs:
         - name: Add Toolchains to PATH
           run: |
             # 注意：这里的路径是基于对压缩包内容的标准猜测，如果解压后的目录名不同，需要进行调整
-            echo "${{ github.workspace }}/qnap-toolchains/x86_64-QNAP-linux-gnu/bin" >> $GITHUB_PATH
+            echo "${{ github.workspace }}/qnap-toolchains/CT/x86_64-QNAP-linux-gnu/cross-tools/bin" >> $GITHUB_PATH
             echo "${{ github.workspace }}/qnap-toolchains/aarch64-QNAP-linux-gnu/bin" >> $GITHUB_PATH
   
         - name: Build for QNAP x86_64 and aarch64
@@ -95,7 +95,7 @@ jobs:
             # 编译 x86_64 版本
             dotnet publish src/N_m3u8DL-RE -r linux-x64 -c Release -o artifact-qnap-x64 \
               -p:CppCompilerAndLinker=x86_64-QNAP-linux-gnu-gcc \
-              -p:SysRoot=${{ github.workspace }}/qnap-toolchains/x86_64-QNAP-linux-gnu/x86_64-QNAP-linux-gnu/sysroot
+              -p:SysRoot=${{ github.workspace }}/qnap-toolchains/CT/x86_64-QNAP-linux-gnu/cross-tools/x86_64-QNAP-linux-gnu/sysroot
   
         - name: Package [qnap]
           run: |
