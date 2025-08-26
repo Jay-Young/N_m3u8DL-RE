@@ -1,4 +1,4 @@
-name: Build Latest
+name: Build Latest For QNAP
 
 on:
   workflow_dispatch:
@@ -35,15 +35,15 @@ jobs:
           DATE=$(date -u -d '8 hours' +'%Y%m%d')
           echo "date=${DATE}" >> "$GITHUB_OUTPUT"
 
-      - name: Determine Tag
-        id: format_tag
-        run: |
-          if [ "${{ github.event.inputs.doRelease }}" == "true" ]; then
-            TAG="${{ github.event.inputs.tag }}"
-          else
-            TAG="actions-$GITHUB_RUN_ID"
-          fi
-          echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
+      # - name: Determine Tag
+      #   id: format_tag
+      #   run: |
+      #     if [ "${{ github.event.inputs.doRelease }}" == "true" ]; then
+      #       TAG="${{ github.event.inputs.tag }}"
+      #     else
+      #       TAG="actions-$GITHUB_RUN_ID"
+      #     fi
+      #     echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
 
   build-qnap-x64-arm64:
       runs-on: ubuntu-latest
