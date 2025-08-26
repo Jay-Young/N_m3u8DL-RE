@@ -89,7 +89,7 @@ jobs:
             # 编译 aarch64 版本
             # 注意：SysRoot 路径同样基于猜测，如果编译失败请根据上面 ls 命令的输出进行调整
             dotnet publish src/N_m3u8DL-RE -r linux-arm64 -c Release -o artifact-qnap-arm64 \
-              -p:CppCompilerAndLinker=aarch64-qnap-linux-gnu-gcc \
+              -p:CppCompilerAndLinker=aarch64-QNAP-linux-gnu-gcc \
               -p:SysRoot=${{ github.workspace }}/qnap-toolchains/aarch64-QNAP-linux-gnu/aarch64-qnap-linux-gnu/sysroot
   
             # 编译 x86_64 版本
