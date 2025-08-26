@@ -21,6 +21,7 @@ on:
 env:
   DOTNET_SDK_VERSION: "9.0.*"
   ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
+  SYSROOT: ${{ github.workspace }}/qnap-toolchains/CT/x86_64-QNAP-linux-gnu/cross-tools/x86_64-QNAP-linux-gnu
 
 jobs:
   set-date:
@@ -95,7 +96,7 @@ jobs:
             # 编译 x86_64 版本
             dotnet publish src/N_m3u8DL-RE -r linux-x64 -c Release -o artifact-qnap-x64 \
               -p:CppCompilerAndLinker=x86_64-QNAP-linux-gnu-gcc \
-              -p:SysRoot=${{ github.workspace }}/qnap-toolchains/CT/x86_64-QNAP-linux-gnu/cross-tools/x86_64-QNAP-linux-gnu/sysroot
+              -p:SysRoot=${{ env.SYSROOT }}
   
         - name: Package [qnap]
           run: |
