@@ -11,7 +11,7 @@ on:
       tag:
         type: string
         description: 'Release version tag (e.g. v0.2.1-beta)'
-        required: false
+        required: true
       ref:
         type: string
         description: 'Git ref from which to release'
@@ -35,15 +35,15 @@ jobs:
           DATE=$(date -u -d '8 hours' +'%Y%m%d')
           echo "date=${DATE}" >> "$GITHUB_OUTPUT"
 
-      # - name: Determine Tag
-      #   id: format_tag
-      #   run: |
-      #     if [ "${{ github.event.inputs.doRelease }}" == "true" ]; then
-      #       TAG="${{ github.event.inputs.tag }}"
-      #     else
-      #       TAG="actions-$GITHUB_RUN_ID"
-      #     fi
-      #     echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
+      - name: Determine Tag
+        id: format_tag
+        run: |
+          if [ "${{ github.event.inputs.doRelease }}" == "true" ]; then
+            TAG="${{ github.event.inputs.tag }}"
+          else
+            TAG="actions-$GITHUB_RUN_ID"
+          fi
+          echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
 
   build-qnap-x64-arm64:
       runs-on: ubuntu-latest
