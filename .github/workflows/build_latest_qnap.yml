@@ -69,10 +69,10 @@ jobs:
             tar -xf qnap-toolchains/x64.tar -C qnap-toolchains
             
             # 下载并解压 aarch64 工具链
-            echo "Downloading arm64 toolchain..."
-            wget -q -O qnap-toolchains/arm64.tar.gz "https://download.qnap.com/dev/Toolchain/aarch64-QNAP-linux-gnu_20171114.tar.gz"
-            echo "Extracting arm64 toolchain..."
-            tar -xzf qnap-toolchains/arm64.tar.gz -C qnap-toolchains
+            # echo "Downloading arm64 toolchain..."
+            # wget -q -O qnap-toolchains/arm64.tar.gz "https://download.qnap.com/dev/Toolchain/aarch64-QNAP-linux-gnu_20171114.tar.gz"
+            # echo "Extracting arm64 toolchain..."
+            # tar -xzf qnap-toolchains/arm64.tar.gz -C qnap-toolchains
             
             # (用于调试) 列出解压后的目录结构，以确认路径正确
             echo "Toolchain directory structure:"
@@ -82,15 +82,15 @@ jobs:
           run: |
             # 注意：这里的路径是基于对压缩包内容的标准猜测，如果解压后的目录名不同，需要进行调整
             echo "${{ github.workspace }}/qnap-toolchains/CT/x86_64-QNAP-linux-gnu/cross-tools/bin" >> $GITHUB_PATH
-            echo "${{ github.workspace }}/qnap-toolchains/aarch64-QNAP-linux-gnu/bin" >> $GITHUB_PATH
+            # echo "${{ github.workspace }}/qnap-toolchains/aarch64-QNAP-linux-gnu/bin" >> $GITHUB_PATH
   
         - name: Build for QNAP x86_64 and aarch64
           run: |
             # 编译 aarch64 版本
             # 注意：SysRoot 路径同样基于猜测，如果编译失败请根据上面 ls 命令的输出进行调整
-            dotnet publish src/N_m3u8DL-RE -r linux-arm64 -c Release -o artifact-qnap-arm64 \
-              -p:CppCompilerAndLinker=aarch64-QNAP-linux-gnu-gcc \
-              -p:SysRoot=${{ github.workspace }}/qnap-toolchains/aarch64-QNAP-linux-gnu/aarch64-QNAP-linux-gnu/sysroot
+            # dotnet publish src/N_m3u8DL-RE -r linux-arm64 -c Release -o artifact-qnap-arm64 \
+            #   -p:CppCompilerAndLinker=aarch64-QNAP-linux-gnu-gcc \
+            #   -p:SysRoot=${{ github.workspace }}/qnap-toolchains/aarch64-QNAP-linux-gnu/aarch64-QNAP-linux-gnu/sysroot
   
             # 编译 x86_64 版本
             dotnet publish src/N_m3u8DL-RE -r linux-x64 -c Release -o artifact-qnap-x64 \
@@ -101,8 +101,8 @@ jobs:
           run: |
             cd artifact-qnap-x64
             tar -czvf ../N_m3u8DL-RE_${{ needs.set-date.outputs.tag }}_qnap-x64_${{ needs.set-date.outputs.date }}.tar.gz N_m3u8DL-RE
-            cd ../artifact-qnap-arm64
-            tar -czvf ../N_m3u8DL-RE_${{ needs.set-date.outputs.tag }}_qnap-arm64_${{ needs.set-date.outputs.date }}.tar.gz N_m3u8DL-RE
+            # cd ../artifact-qnap-arm64
+            # tar -czvf ../N_m3u8DL-RE_${{ needs.set-date.outputs.tag }}_qnap-arm64_${{ needs.set-date.outputs.date }}.tar.gz N_m3u8DL-RE
   
         - name: Upload Artifact [qnap-x64]
           uses: actions/upload-artifact@v4
@@ -110,8 +110,8 @@ jobs:
             name: qnap-x64
             path: N_m3u8DL-RE_${{ needs.set-date.outputs.tag }}_qnap-x64_${{ needs.set-date.outputs.date }}.tar.gz
   
-        - name: Upload Artifact[qnap-arm64]
-          uses: actions/upload-artifact@v4
-          with:
-            name: qnap-arm64
-            path: N_m3u8DL-RE_${{ needs.set-date.outputs.tag }}_qnap-arm64_${{ needs.set-date.outputs.date }}.tar.gz
+        # - name: Upload Artifact[qnap-arm64]
+        #   uses: actions/upload-artifact@v4
+        #   with:
+        #     name: qnap-arm64
+        #     path: N_m3u8DL-RE_${{ needs.set-date.outputs.tag }}_qnap-arm64_${{ needs.set-date.outputs.date }}.tar.gz
